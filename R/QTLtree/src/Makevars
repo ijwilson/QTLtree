@@ -1,0 +1,2 @@
+
+PKG_CPPFLAGS= -DUSE_R -DNDEBUG -I. -I/usr/local/include -I/home/nijw/include

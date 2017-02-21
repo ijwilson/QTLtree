@@ -1,0 +1,76 @@
+\documentclass[a4paper,10pt]{article}
+
+\begin{document}
+
+
+The first fomrat that I shall use is based on the GAW data format  - which was the data set used in the 
+original 
+
+This is a comma separated table, with rows representting individuals.
+
+The first row of the table gives the SNP names
+each subsequent row gives the individual ID and then, comma separated genotypes.
+
+
+\begin{verbatim}
+ID,S1,S2,S3,S4
+individualA,A/G,C/T,T/T,C/C
+individualB,G/G,C/T,T/T,C/C
+individualC,A/G,C/C,C/T,C/C
+individualD,G/G,C/C,T/T,C/C
+\end{verbatim}
+A second file is needed for the positions of the markers, and other information about the markers
+
+
+\begin{verbatim}
+snp_name,chromosome,position,gene,snp_type,variant,maf
+C1S672,1,845962,LOC100128838,Nonsynonymous,G,0.003587
+C1S688,1,1105324,TTLL10,Nonsynonymous,T,0.014347
+C1S689,1,1105366,TTLL10,Nonsynonymous,C,0.005022
+C1S690,1,1105373,TTLL10,Nonsynonymous,T,0.001435
+C1S691,1,1105411,TTLL10,Nonsynonymous,A,0.002152
+C1S692,1,1105467,TTLL10,Synonymous,A,0.007174
+C1S693,1,1105468,TTLL10,Nonsynonymous,A,0.004304
+C1S696,1,1106045,TTLL10,Nonsynonymous,T,0.001435
+C1S697,1,1106090,TTLL10,Nonsynonymous,A,0.000717
+C1S698,1,1106094,TTLL10,Nonsynonymous,C,0.021521
+C1S716,1,1108138,TTLL10,Synonymous,T,0.111191
+C1S717,1,1108278,TTLL10,Nonsynonymous,A,0.001435
+C1S721,1,1109177,TTLL10,Nonsynonymous,T,0.000717
+C1S722,1,1109206,TTLL10,Nonsynonymous,A,0.001435
+\end{verbatim}
+
+A third file gives the values of the QTLs for each sample, with the first column
+comtaining the ID, and the row containing column headers.
+\begin{verbatim}
+ID,SEX,AGE,SMOKE,Q1,Q2,Q4,AFFECTED
+individualA,1,81,0,1.85,-1.58,-0.94,1
+individualB,1,67,0,1.69,2.23,-1.29,1
+individualC,2,46,0,-0.62,0.13,-0.91,0
+individualD,2,62,1,-1.012,0.91,-1.74,1
+\end{verbatim}
+
+A further optional targetfile, gives the set of positions to consider.  A natural way to think about this is 
+as a list of genes.
+
+\begin{verbatim}
+gene,chromosome,position,gene_start,gene_end,gene_length,orientation,geneid
+A4GNT,3,139325796,139325756,139333897,8142,-,51146
+AADAC,3,153028291,153014551,153028966,14416,+,13
+AARS,16,68861081,68843798,68880913,37116,-,16
+AASDHPPT,11,105453773,105453502,105474629,21128,+,60496
+AATF,17,32381785,32380288,32488284,107997,+,26574
+\end{verbatim}
+
+
+Further data files may be needed such as the ped file, which gives regional information about the sample.
+
+\begin{verbatim}
+ID,SEX,AGE,Population
+individualA,1,81,pop1
+individualB,1,67,pop2
+individualC,2,46,pop1
+individualD,2,62,pop3
+\end{verbatim}
+
+\end{document}

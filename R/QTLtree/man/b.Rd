@@ -1,0 +1,53 @@
+\name{b}
+\alias{b}
+\docType{data}
+\title{ ~~ data name/kind ... ~~}
+\description{
+  ~~ A concise (1-5 lines) description of the dataset. ~~
+}
+\usage{data(b)}
+\format{
+  The format is:
+List of 3
+ $ replicate1:List of 7
+  ..$ use       : num 28
+  ..$ diseasepos: num 354
+  ..$ haplotypes: num [1:80, 1:200] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ position  : num [1:200] 5 13 16 17 19 26 53 59 68 88 ...
+  ..$ locations : num [1:80] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ labels    : num [1:80] 362 223 326 666 99 135 91 205 801 195 ...
+  ..$ diseaseSNP: num [1:80] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "class")= chr "GenomicHaplotype"
+ $ replicate2:List of 7
+  ..$ use       : num 61
+  ..$ diseasepos: num 548
+  ..$ haplotypes: num [1:80, 1:200] 1 1 0 1 1 1 1 0 0 1 ...
+  ..$ position  : num [1:200] 1 7 10 21 22 42 43 49 51 58 ...
+  ..$ locations : num [1:80] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ labels    : num [1:80] 5 313 262 31 724 145 201 141 746 203 ...
+  ..$ diseaseSNP: num [1:80] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "class")= chr "GenomicHaplotype"
+ $ replicate3:List of 7
+  ..$ use       : num 145
+  ..$ diseasepos: num 1466
+  ..$ haplotypes: num [1:80, 1:200] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ position  : num [1:200] 22 33 38 39 42 73 84 94 105 108 ...
+  ..$ locations : num [1:80] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ labels    : num [1:80] 802 183 590 389 270 646 23 971 615 349 ...
+  ..$ diseaseSNP: num [1:80] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "class")= chr "GenomicHaplotype"
+}
+\details{
+  ~~ If necessary, more details than the __description__ above ~~
+}
+\source{
+  ~~ reference to a publication or URL from which the data were obtained ~~
+}
+\references{
+  ~~ possibly secondary sources and usages ~~
+}
+\examples{
+data(b)
+## maybe str(b) ; plot(b) ...
+}
+\keyword{datasets}

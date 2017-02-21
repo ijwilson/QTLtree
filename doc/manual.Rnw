@@ -1,0 +1,344 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{a4wide}
+\usepackage{hyperref}
+
+\newcommand{\QTLTree}{\texttt{QTLTree}}
+
+\title{QTLTree User Manual}
+\author{Ian Wilson}
+\begin{document}
+
+\maketitle
+
+
+\section{Installation}
+
+\subsection{Required Libraries}
+
+\subsubsection{TNT}
+
+This software needs the \href{http://math.nist.gov/tnt}{Template Numical Toolkit (TNT)} for C++ to compile.  \href{http://math.nist.gov/tnt/tnt_126.zip}{Download} this library and unzip into the src directory.  This library is a collection of headers and requires no further installation.  Commands to do this are included below, if you have \verb'wget'.
+
+\begin{verbatim}
+wget  http://math.nist.gov/tnt/tnt_126.zip
+unzip -d tnt tnt_126.zip   # unzips into directory tnt
+\end{verbatim}
+
+\subsubsection{GSL}
+The \href{http://www.gnu.org/g/gsl}{gnu scientific library (GSL)} is also required.  If this is not present on your system then you need to get hte administrator to install.  It is available for all major linux flavours, and for windows and OSX.
+
+\subsection{Compilation}
+
+To compile on a linux distribution just tyope make in the \verb'src' directory.
+
+\section{Introduction}
+
+  Fastsplit is a program that splits a set of haplotypes into trees
+  and then tests for difference in tree structure between different
+  classes of haplotypes (generally cases and controls).
+
+  
+  
+  This document describes how to use the program on a real dataset.
+  Example dataset that illustrates its use are in the directory
+  \verb'example', along with some example command lines.
+
+Generally the first port of call for help with this software is to use
+\begin{verbatim}
+QTLTree --help
+\end{verbatim}
+which produces the following output
+
+\begin{verbatim}
+
+./QTLTree --help
+Usage:
+filename <Other Options>
+
+Options
+  --help                   produce help message 
+  --version                version number
+  --R (CD/unrelateds.ped)  ped filename, gives the list of samples and
+                           their regions
+  --al (4)                 Length of population abbreviation
+  --b (/users/nijw/GAW/)   Base Directory
+  --d (1)                  datasets to use (when have multiple QTL
+                           datasets)
+  --direction (C)          The direction of the tree, <L>eft, <R>ight
+                           or <C>entral
+  --k (10)                 k - the number of disjoint node statistics
+                           to collect
+  --keep (false)           Keep all the randomisations - useful to
+                           look at the distribution of randomisation
+                           statistics but this produces lots of data,
+                           use very carefully
+  --pheno (CD/unr_phen)    pheno filename.
+  --qtlpos (1)             Which QTL to use (1 offset)
+  --r (1000)               replicates for the randomisation
+  --s (A)                  Statistic to use <A>bsolute, <Z>squared,
+                           <P>ositive or <N>egative
+  --seed (1)               Random Number Seed
+  --snp (CD/snp_info)      snp info filename, gives the snp codes
+  --t (Extras/gene_info.4ago2010) File containing list of targets
+
+
+
+Usage:
+filename <Other Options>
+
+Options used
+  --help                   produce help message 
+  --version                version number
+  --E ()                   A file that contains SNPs positions to exclude
+  --L (2)                  Case Label
+  --P ()                   positions filename (blank for <infile>.position)
+  --R ()                   regions filename (blank for <infile>.region)
+                           not needed unless you use regional randomisation
+  --b (1)                  first SNP to split
+  --direction (C)          The direction of the tree, <L>eft, <R>ight or <C>entral
+  --end (-1)               The last position to analyse (in MB) - negative for 
+                           the position of the last SNP
+  --f (beagleOut.phased)   Beagle input filename
+  --input ()               Stem of input filenames  (.phased, .position and .trait 
+                           added to create file names)
+                           if this is left blank then the individual file names are used
+  --k (10)                 k - the number of disjoint node statistics to collect
+  --n (10)                 Number of SNPs to split
+  --r (100)                replicates for the randomisation
+  --regional (false)       Use regional randomisation?
+  --removeCentre (false)   Remove the First SNP
+  --seed (1)               Random Number Seed
+  --start (-1)             The first position to analyse (in MB) - negative for the 
+                           position of the first SNP
+  --stat (P)               Test Statistic to use
+                S for the Sevon test statistic
+                Q for the sQuared Sevon statistic,
+                A for the absolute Sevon test statistic
+                G for a G-test statistic
+                P for the exact binomial tail probability
+                N for a normalised exact binomial tail probability (G test statistic)
+                T for the Tree test statistic
+                C for the 'Cherries' test statistic
+                H for the 'Height' test statistic
+
+  --t ()                   Traits filename (blank for <infile>.trait)
+
+\end{verbatim}
+
+If you would like to ask for help it is also helpful to know the version used.  For this use 
+
+\begin{verbatim}
+QTLTree --version
+\end{verbatim}
+
+
+\section{Available Options}
+
+\subsection{Input}
+
+Input is as haplotypes with addditional data files giving the positions of the 
+SNPs and the traits (Case/Control) say.
+
+\subsubsection{Data File}
+\label{sec:datafile}
+
+\verb'--f': The main haplotype input file.  This is in Beagle format.
+an example file is shopwn below.  The first line is data for a marker
+(column 1), for SNP r23094315 (second column) and subsequent columns
+give the SNP at each haplotype.
+
+\begin{verbatim}
+# version 0.06, command line: WTCCCtoBEAGLE --f=0 --l=1.5 --s=58C,HT 
+M rs3094315 1 1 0 1 0 1 1 1 0 1 1 1 1 1 0 1 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 
+M rs6672353 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+M rs2980300 1 1 0 1 0 1 1 1 0 1 1 1 1 1 0 1 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 
+\end{verbatim}
+
+\subsubsection{Positions File}
+\label{sec:positionsfile}
+
+\verb'--P': give the name of the positions file.
+
+The file give the positions (as the distance along the chromosome in
+base pairs) for each of the SNPs in the data file.  This file must
+containt the positions for all SNPs that are in the data file (but can
+also include SNPs that are not in the data file.  An example file is
+given below.  It has two columns.  The first is the SNP label for each
+SNP that is to be used and the second is its position.  Note that SNP
+\verb'rs4040617' is not in the data file.  This should not cause any
+problems.
+
+\begin{verbatim}
+# position file written by WTCCCtoBEAGLE
+rs3094315 792429
+rs6672353 817376
+rs4040617 819185
+rs2980300 825852
+
+\end{verbatim}
+
+\subsubsection{The Regional File}
+\label{sec:regional}
+
+\verb'--R':  Give the file name of the regional file.  
+
+This is optional and only used if we use use regional randomisation.
+
+
+
+
+\subsubsection{Traits}
+\label{sec:traits}
+
+\verb'--t': The file containing traits to analyse.  Presently only
+uses the first trait, and just considers those entries that match the
+case label (option \verb'--L').
+
+\begin{verbatim}
+# file written by WTCCCtoBEAGLE
+A NBS 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+\end{verbatim}
+
+
+\verb'--L': Gives the value that we should consider the Case trait.
+It is \textbf{2} by default.
+
+
+\subsubsection{A Shortcut}
+
+\verb'--input':  Gives the stem of the input file. 
+
+This si a shortcut to allow the use of the same filename stem for all
+the different input files.
+
+
+This is only used if the \verb'--f', \verb'--P' and \verb'--t' options are not used.  
+Using \\
+\verb'--input=stem' is equivalent to using\\
+\verb'--f=stem.phased --P=stem.position --t=stem.trait'.
+
+
+\subsection{Positions to Analyse}
+
+The data files given above give us the raw materials to analyse.  If no other options are added then
+\textbf{QTLTree} will make trees starting at each position.   
+
+\verb'--start' and \\
+\verb'--end':  \\
+Allow you to specify (in Megabases) the start and end points of the region to be analysed.  Within this region trees will
+be started at each position (but also see the option \verb'--E'). 
+
+
+\subsection{Tree Building}
+
+The haplotype trees are built using a lexical sorting algorithm.
+Essentially a binary tree is produced where, as you consider each SNP
+in turn a 1 at a position put you in the left branch of the tree and a
+0 puts you to the right.  The final trees that are produced depend on a number of parameters.
+
+\verb'--direction': The direction of the tree splitting.  This can
+either be to the \textbf{L}eft of the centre, to the \textbf{R}ight,
+or \textbf{C}entrally - that is the positions to split are those in
+ascending order of distance away from the starting point.
+
+\verb'--n': The number of positions to split at.  
+
+\verb'--E':  A file with the SNP positions to exclude.  T
+
+\verb'--removeCentre': If this option is set then the first SNP is
+always excluded.  This is a useful test if the first SNP is a known
+factor.
+
+\subsection{Test Statistics and Randomisation}
+
+The significance of test statistics is tested using randomisation.
+
+\verb'--stat':  Which test statistic to use
+
+\begin{table}
+  \centering
+  \begin{tabular}{ccl}
+    Code & Local & \\
+  S &Y& The Sevon test statistic\\
+                Q & Y & the  squared Sevon statistic\\
+                A & Y & the absolute Sevon test statistic\\
+                G  & Y & a G-test statistic\\
+                P & Y & the exact binomial tail probability\\
+                N & Y & a normalised exact binomial tail probability (G test statistic)\\
+                T & N & The Tree test statistic\\
+                C & N & The 'Cherries' test statistic\\
+                H & N & The 'Height' test statistic
+  \end{tabular}
+  \caption{Test statistics available in QTLTree.}
+  \label{tab:stats}
+\end{table}
+
+
+
+\verb'--k'
+
+\verb'--r':  The number of replicate randomisations to use.  
+
+\verb'--regional':  Use randomisation within regions.
+
+\verb'--seed'  Use a different random number seed to the default for the randomisations.
+
+
+\section{Examples}
+\label{sec:example}
+
+The directory example contains examples of the use of \textbf{QTLTree}
+
+
+\subsection{Simple Tree Consistent with no recombination}
+
+The dataset in \texttt{simpletest.phased} shows some properties of the tree building algorithm.  It contains data for five SNPs labelled a-e.  
+
+We can look at the data using the R commands for tree building described in appendix A.  
+
+<<simpletest>>=
+library(genomic)  # for ijwtools and read.beagle
+a <- read.beagle("../example/simpletest")
+cc <-  gl(2,40,labels=c("Case","Control"))
+tb <- table(cc,apply(a,1,paste,collapse="-")) # get the table
+SevonStatistic <- function(x) {
+  n <- sum(x)
+  (x[1]-0.5*n)/sqrt(0.25*n)
+}
+                                                              
+TerminalNodeStats <- apply(tb,2,SevonStatistic)
+tree1 <- Split(a,1:40,1:5)                    # tree Left to Right
+tree2 <- Split(a,1:40,5:1)                    # tree Right to Left
+@ 
+
+<<simpletesttable,echo=FALSE,results=tex>>=
+library(xtable)
+xtable(t(rbind(tb,"Statistic"=TerminalNodeStats)),caption="Simpletest Data",digits=c(0,0,0,2))
+@ 
+
+\begin{figure}
+  \centering
+<<simpletesttable,echo=FALSE,fig=TRUE>>=
+par(mfrow=c(1,2),mar=rep(0,4))
+plot(tree1)
+plot(tree2)
+@ 
+  \caption{Trees constructed from simpletest.  Trees constructioned from Left to Right (Left) and Right to Left (Right).}
+  \label{fig:simpletest}
+\end{figure}
+
+\subsubsection{QTLTree}
+
+We can recreate the parts of R analysis by using \QTLTree.  We do this using the command:
+<<QTLTreeA,echo=FALSE>>=
+QTLTreecommand = "QTLTree --input=../example/simpletest --stat=S"
+res <- system(QTLTreecommand,intern=TRUE)
+resb <- strsplit(res," ")
+stat <- unlist(lapply(resb,function(x) x[2]))
+print(stat)
+
+@ 
+
+
+
+\end{document}

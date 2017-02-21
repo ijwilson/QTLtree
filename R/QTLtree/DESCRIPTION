@@ -1,0 +1,9 @@
+Package: QTLtree
+Type: Package
+Title: A set of utility functions for splitting of haplotypes.
+Version: 0.1
+Date: 2011-03-05
+Author: Ian Wilson
+Maintainer: Who to complain to <Ian.Wilson@ncl.ac.uk>
+Description: Contains utility functions for quick reading of xml files and for working with the output of simulation programs.
+License: What license is it under?

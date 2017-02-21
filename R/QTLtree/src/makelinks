@@ -1,0 +1,9 @@
+#!/bin/bash
+ln -s $HOME/GenTL/binode.H .
+ln -s $HOME/utilcpp/testStats.H .
+ln -s $HOME/utilcpp/util.H .
+ln -s $HOME/utilcpp/gsl_rand.H .
+ln -s $HOME/utilcpp/utilityfunctionals.H .
+ln -s $HOME/utilcpp/newio.H .
+ln -s $HOME/utilcpp/myenums.h .
+ln -s $HOME/GenTL/splitter.H .
