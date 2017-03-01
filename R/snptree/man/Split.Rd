@@ -10,8 +10,11 @@ Split(d, cases, SplitPositions, positions)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{d}{ ~~Describe \code{d} here~~ }
-  \item{cases}{ ~~Describe \code{cases} here~~ }
+ arguments{
+  \item{d}{ A matrix of haplotypes with samples by row }
+  \item{cases}{ A matrix giving the labels of the cases.  By default the
+    last half of the sample are cases - note that the algorithm is
+    symmetric between cases and controls.}
   \item{SplitPositions}{ ~~Describe \code{SplitPositions} here~~ }
   \item{positions}{ ~~Describe \code{positions} here~~ }
 }
@@ -31,8 +34,10 @@ Split(d, cases, SplitPositions, positions)
 }
 \seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
 \examples{
-d <- cbind(c(0,0,0,0,1,1,1,1),c(0,0,1,1),c(0,1))
-d
+data(snptreeExample)
+s <- Split(haps, cases = which(sample=="Case"))
+plot(s)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

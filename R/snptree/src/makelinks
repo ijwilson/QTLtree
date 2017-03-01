@@ -1,0 +1,11 @@
+#!/bin/bash
+rm binode.h testStats.h tnt util.h gsl_rand.h utilityfunctionals.h myenums.h newio.h splitter.h 
+ln -s $HOME/git/GenTL/binode.h .
+ln -s $HOME/git/ijw/testStats.h .
+ln -s $HOME/git/ijw/util.h .
+ln -s $HOME/git/ijw/gsl_rand.h .
+ln -s $HOME/git/ijw/utilityfunctionals.h .
+ln -s $HOME/git/ijw/newio.h .
+ln -s $HOME/git/ijw/myenums.h .
+ln -s $HOME/git/GenTL/splitter.h .
+ln -s $HOME/git/ijw/tnt .
