@@ -29,6 +29,7 @@
           ,nodecat = as.integer(numeric(ncat*n))
           ,leafcat = as.integer(numeric(ncat*n))
           ,as.integer(ncat)
+<<<<<<< HEAD
           ,PACKAGE="snptree")
   
   #print(a)
