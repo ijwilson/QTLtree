@@ -47,21 +47,21 @@ tags:
 		$(HOME)/GenTL/*.cpp $(HOME)/GenTL/*.[hH]
 
 ExtractVars:  ExtractVars.o FSData.o  read_csv.o options.o newio.o 
-		$(CXX)  $(LDFLAGS) $(CXXFLAGS)   ExtractVars.o FSData.o  newio.o  options.o read_csv.o -o ExtractVars $(LDFLAGS)
+		$(CXX)  $(LDFLAGS) $(CXXFLAGS)   ExtractVars.o FSData.o  newio.o  options.o read_csv.o -o bin/ExtractVars $(LDFLAGS)
 
 AlleleCounts:  AlleleCounts.o FSData.o  read_csv.o options.o newio.o 
-		$(CXX)  $(LDFLAGS) $(CXXFLAGS)  AlleleCounts.o FSData.o  newio.o  options.o read_csv.o -o AlleleCounts $(LDFLAGS)
+		$(CXX)  $(LDFLAGS) $(CXXFLAGS)  AlleleCounts.o FSData.o  newio.o  options.o read_csv.o -o bin/AlleleCounts $(LDFLAGS)
 
 
 QTLTree:	 $(splitfiles) 	QTLTree.o read_csv.o  FSData.o
-		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o QTLTree.o  read_csv.o -o QTLTree $(LDFLAGS)
+		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o QTLTree.o  read_csv.o -o bin/QTLTree $(LDFLAGS)
 
 
 fastsplit:	fastsplit.o $(splitfiles) 
-		$(CXX)   $(CXXFLAGS) $(splitfiles) fastsplit.o  -o fastsplit 	$(LDFLAGS)
+		$(CXX)   $(CXXFLAGS) $(splitfiles) fastsplit.o  -o bin/fastsplit 	$(LDFLAGS)
 
 fastsplitqtl:	fastsplitqtl.o $(splitfiles) 
-		$(CXX)   $(CXXFLAGS) $(splitfiles) fastsplitqtl.o  -o fastsplitqtl $(LDFLAGS)
+		$(CXX)   $(CXXFLAGS) $(splitfiles) fastsplitqtl.o  -o bin/fastsplitqtl $(LDFLAGS)
 
 fastsplit.o:	fastsplit.cc options.H splitter.H binode.H closest.H
 fastsplitqtl.o:	fastsplitqtl.cc options.H splitter.H binode.H closest.H
