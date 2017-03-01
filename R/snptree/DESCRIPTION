@@ -1,5 +1,4 @@
 Package: snptree
-Suggests: testhat
 Type: Package
 Title: Creates lexical trees.
 Version: 0.2

@@ -41,4 +41,21 @@ plot.split <-
       tiplabels(lt , adj = -0.2, cex = 0.6, font = 2)
     }
   }
-}
+  }
+
+
+"plot.splitqtl" <-
+  function (a, length = FALSE) 
+  {
+    require(ape)
+    plot(a$tree, show.tip.label = FALSE)
+    
+    
+    
+    nodelabels(round(a$qtlnode,2),cex=0.5)
+    tiplabels(round(a$qtlleaf,2),cex=0.5)
+    
+    
+    
+    
+  }
