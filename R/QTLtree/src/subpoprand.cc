@@ -1,5 +1,5 @@
 #include "R.h"
-#include "gsl_rand.H"
+#include "gsl_rand.h"
 #include "tnt/tnt.h"
 #include <vector>
 #include <algorithm>

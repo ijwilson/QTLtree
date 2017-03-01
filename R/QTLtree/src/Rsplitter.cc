@@ -1,5 +1,5 @@
-#include "splitter.H"
-#include "gsl_rand.H"
+#include "splitter.h"
+#include "gsl_rand.h"
 #include "tnt/tnt.h"
 #include <R.h>
 #include <Rmath.h>
