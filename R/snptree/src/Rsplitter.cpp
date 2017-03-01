@@ -53,7 +53,12 @@ extern "C" {
    * been separated out, but they always include the starting position (which should guarantee
    * that all positions that the haplotypes have been split on are included).   
   */
-  void GetQTLSplit( int *data, int *samplesize, int *nSNP, int *positions, int *npos,double *qtl,
+  void GetQTLSplit( int *data, 
+                    int *samplesize, 
+                    int *nSNP, 
+                    int *positions, 
+                    int *npos,
+                    double *qtl,
                     int *edge
                     ,int *len
                     ,int *leafcount
@@ -168,7 +173,7 @@ extern "C" {
   }
 
   /** Get a split that splits everything (if no information then the 
-   * splits are at random                                               */
+    * splits are at random                                               */
   void simplesplit( int *data, int *samplesize, int *nSNP, 
 		    int *edge,int *comblabels) 
   {  

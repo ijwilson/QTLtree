@@ -139,7 +139,8 @@
               qtlnode=a$qtlnode[1:(leaves-1)],qtlleaf=a$qtlleaf[1:leaves],n=n,labels=labs)
     class(b) <- "splitqtl"
     b
-  }
+}
+
 "SplitCategory" <- function(d,categories,SplitPositions,positions,quiet=TRUE)
   {
     n <- nrow(d)
