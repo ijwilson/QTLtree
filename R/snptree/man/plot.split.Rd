@@ -15,8 +15,8 @@ plot.split(a, pie = FALSE, length = FALSE)
   \item{a}{
  The object of class \code{snptree}}
   \item{pie}{
-Put a pie chart of relative frequencies of cases and controls at the nodes?
-}
+  Put a pie chart of relative frequencies of cases and controls at the nodes?
+  }
   \item{length}{
 %%     ~~Describe \code{length} here~~
 }
@@ -42,7 +42,7 @@ Put a pie chart of relative frequencies of cases and controls at the nodes?
 \code{\link{Split}}}
 \examples{
 data(snptreeExample)
-s <- Split(haps,which(sample=="Case"),position)
+s <- Split(haps,which(sample=="Case"), position)
 plot(s)
 }
 \keyword{ graphics }
