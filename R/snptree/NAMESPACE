@@ -1,0 +1,4 @@
+useDynLib(snptree)
+exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "plot")
+
