@@ -1,9 +1,11 @@
 #!/bin/bash
-ln -s $HOME/GenTL/binode.H .
-ln -s $HOME/utilcpp/testStats.H .
-ln -s $HOME/utilcpp/util.H .
-ln -s $HOME/utilcpp/gsl_rand.H .
-ln -s $HOME/utilcpp/utilityfunctionals.H .
-ln -s $HOME/utilcpp/newio.H .
-ln -s $HOME/utilcpp/myenums.h .
-ln -s $HOME/GenTL/splitter.H .
+rm binode.h testStats.h tnt util.h gsl_rand.h utilityfunctionals.h myenums.h newio.h splitter.h 
+ln -s $HOME/git/GenTL/binode.h .
+ln -s $HOME/git/ijw/testStats.h .
+ln -s $HOME/git/ijw/util.h .
+ln -s $HOME/git/ijw/gsl_rand.h .
+ln -s $HOME/git/ijw/utilityfunctionals.h .
+ln -s $HOME/git/ijw/newio.h .
+ln -s $HOME/git/ijw/myenums.h .
+ln -s $HOME/git/GenTL/splitter.h .
+ln -s $HOME/git/ijw/tnt .

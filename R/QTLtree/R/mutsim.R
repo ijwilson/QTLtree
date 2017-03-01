@@ -32,7 +32,7 @@ function(n,minfreq,penetrance,pfail=0.00001)
     
   }
 
-  require(ijwtools)
+  library(ijwtools)
   tmpfile=tempfile();
   penetrances <- paste("--pi",c("00","01","11"),"=",penetrance,sep="",collapse=" ")
   if (!missing(seed)) set.seed(seed)
