@@ -1,0 +1,4 @@
+useDynLib(QTLtree)
+exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "plot")
+
