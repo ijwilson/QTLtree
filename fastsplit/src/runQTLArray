@@ -1,0 +1,5 @@
+#!/bin/bash
+#$ -cwd -V 
+#$ -t 1-200
+#$ -N Q4.R.10000
+./QTLTree --r=10000 --d=$SGE_TASK_ID --qtlpos=5 --pheno=Extras/newunr_phen

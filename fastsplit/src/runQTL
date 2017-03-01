@@ -1,0 +1,3 @@
+#!/bin/bash
+#$ -cwd -V
+./QTLTree --r=1000000

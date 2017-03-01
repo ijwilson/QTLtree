@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# first get something equivalent to an allelic test for association at 
+# single loci
+fastsplit --input=aa --stat=S --direction=R --k=1 --n=1 > outaa.1
+# now do tree based tests over the region for Left and Right trees.
+fastsplit --input=aa --stat=N --direction=L > outaa.L
+fastsplit --input=aa --stat=N --direction=R > outaa.R
+
+##
+##
+##
+a <- read.table("outaa.1")
+plot(a[,1],1-a[,3]/1000)
+L <- read.table("outaa.L")
+lines(L[,1],1-L[,3]/1000,col="blue")
+R <- read.table("outaa.R")
+lines(R[,1],1-R[,3]/1000,col="red")
+
