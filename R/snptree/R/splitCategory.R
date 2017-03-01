@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 "SplitCategory" <- function(d, categories, SplitPositions, positions, quiet=TRUE)
+=======
+"SplitCategory" <- function(d,categories,SplitPositions,positions,quiet=TRUE)
+>>>>>>> 215aad629656113e65dcf03cff55616e0cfc860f
 {
   n <- nrow(d)
   if (missing(SplitPositions))  SplitPositions <- 1:ncol(d)
