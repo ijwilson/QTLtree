@@ -3,14 +3,14 @@
  * the branch splits when compared to cases and controls  
  */
  
-#include "splitter.H"
-#include "BeagleData.H"
+#include "splitter.h"
+#include "BeagleData.h"
 #include "tnt/tnt.h"
-#include "options.H"
-#include "newio.H"
-#include "gsl_rand.H"
-#include "RandomisedCases.H"
-#include "closest.H"
+#include "options.h"
+#include "newio.h"
+#include "gsl_rand.h"
+#include "RandomisedCases.h"
+#include "closest.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -21,13 +21,13 @@
 int main(int argc, char *argv[]) 
 {
   int starting,nSplits,reps,maxk,seed,CaseLabel;
-  std::string infile,traitFile,positionFile,regionFile,excludeFile,QTLfile;
+  std::string infile,traitFile,positionFile,regionFile,excludeFile,QTLfile, PickStat;
   double FirstPos,LastPos,maxdistance;
   bool regional=false,removeCentre=false,loud=false;
-  char PickStat,direction;
+  char direction;
 
   // get the version number from SVN
-  const char *version=SVN_REV;
+  const char *version=GIT_REV;
   options o("Options used",version);
  
   try {
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	  "\t\tT for the Tree test statistic\n"
 	  "\t\tC for the 'Cherries' test statistic\n"
 	  "\t\tH for the 'Height' test statistic\n"         
-	  ,'P');
+	  ,"P");
     o.add(&FirstPos,"start","The first position to analyse (in MB) - negative for the position of the first SNP",-1.0);
     o.add(&LastPos,"end","The last position to analyse (in MB) - negative for the position of the last SNP",-1.0);
     o.add(&direction,"direction","The direction of the tree, <L>eft, <R>ight or <C>entral",'C');
@@ -105,22 +105,22 @@ int main(int argc, char *argv[])
           back_inserter(ExcludePositions ) );
   } 
 
-  if (PickStat=='T') {
+  if (PickStat=="T") {
     if (maxk>4) 
       if (loud) std::cerr << "There are only four disjoint statistics for 'T'\n";
     maxk=4;
   }
-  if (PickStat=='t') {
+  if (PickStat=="t") {
     if (maxk>6) 
       if (loud)  std::cerr << "There are only six disjoint statistics for 't'\n";
     maxk=6;
   }
-  if (PickStat=='C') {
+  if (PickStat=="C") {
     if (maxk!=8) 
       if (loud)  std::cerr << "Need 8 statistics for 'C'\n";
     maxk=8;
   }
-  if (PickStat=='H') {
+  if (PickStat=="H") {
     if (maxk!=8) 
       if (loud)  std::cerr << "Need 4 statistics  for 'H'\n";
     maxk=8;
@@ -211,11 +211,11 @@ int main(int argc, char *argv[])
     }
     if (minpos<=maxpos) {  // was anything done
 
-      std::vector<double> stat=s.getStat(cases,maxk,PickStat);
+      std::vector<double> stat=s.getStat(cases,maxk,PickStat. c_str());
       
       TNT::Array2D<double> RandStatistics(maxk,reps);
       for (int replicate=0;replicate<reps;replicate++) {
-        std::vector<double> stmp=s.getStat(randcases->at(replicate),maxk,PickStat);
+        std::vector<double> stmp=s.getStat(randcases->at(replicate),maxk, PickStat.c_str());
         for (int k=0;k<maxk;k++) RandStatistics[k][replicate]=stmp[k];
       }
       TNT::Array1D<double>  pval(maxk,0.0);

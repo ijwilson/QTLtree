@@ -1,22 +1,23 @@
 /** Program to read GAW data, and GAW phenotype files 
  * and to do my sets of analyses on them    */
  //./QTLtree --b=../python/ --snp=markers.csv --R=pops.ped --pheno=qtl.csv --t=targets.csv --qtlpos=1
-#include "options.H"
-#include "read_csv.H"
-#include "FSData.H"
-#include "gsl_rand.H"
-#include "progressBar.H"
-#include "splitter.H"
+#include "options.h"
+#include "read_csv.h"
+#include "FSData.h"
+#include "gsl_rand.h"
+#include "progressBar.h"
+#include "splitter.h"
 
 #include <iostream>
 
 int main(int argc, char *argv[]) 
 {
-  std::string targetFile,pedFile,snpFile,phenoFile,basedir,genotypeFile;
+  std::string targetFile, pedFile, snpFile, phenoFile, basedir, genotypeFile;
   bool keepRandomisations; 
   int reps,maxk,seed,qtlpos,abbrevLength;//,dataset
-  char direction,statisticUsed; 
-  const char *version=SVN_REV;
+  std::string  statisticUsed; 
+  char direction;
+  const char *version=GIT_REV;
   
   options o("Options used",version);
 
@@ -34,9 +35,9 @@ int main(int argc, char *argv[])
           "randomisation statistics but this produces lots of data, use very carefully");
     o.add(&maxk,"k","k - the number of disjoint node statistics to collect",10);
     o.add(&seed,"seed","Random Number Seed",1);
-    o.add(&direction,"direction","The direction of the tree, <L>eft, <R>ight or <C>entral",'C');
+    o.add(&direction,"direction", "The direction of the tree, <L>eft, <R>ight or <C>entral", 'C');
     o.add(&qtlpos,"qtlpos","Which QTL to use (1 offset but ignore label)",4);
-    o.add(&statisticUsed,"s","Statistic to use <A>bsolute, <Z>squared, <P>ositive or <N>egative",'A');
+    o.add(&statisticUsed,"s","Statistic to use <A>bsolute, <Z>squared, <P>ositive or <N>egative", "A");
     o.add(&abbrevLength,"al","Length of population abbreviation",4);
     o.readcommandline(argc,argv);
   }  
@@ -149,11 +150,11 @@ int main(int argc, char *argv[])
          throw ijwerror("No trees defined for direction ",direction);
       }
       if (minpos<=maxpos) {  // was anything done
-        std::vector<double> stat=s.qtlStat(myqtl,maxk,statisticUsed);
+        std::vector<double> stat=s.qtlStat(myqtl, maxk, statisticUsed.c_str());
         std::vector<std::vector<double> > RandStatistics;
       
         for (int replicate=0;replicate<reps;replicate++) {
-          RandStatistics.push_back(s.qtlStat(randqtl[replicate],maxk,statisticUsed));
+          RandStatistics.push_back(s.qtlStat(randqtl[replicate],maxk,statisticUsed.c_str()));
         }
 
         if (keepRandomisations) {      // keep the randomised data
