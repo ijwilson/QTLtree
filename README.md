@@ -1,7 +1,7 @@
 QTLTree
 =======
 
-This repository contains code for producing and permorming statistical tests using 
+This repository contains code for producing and performing statistical tests using 
 haplotype trees.
 
 ![A haplotype tree ](doc/frontpage.jpg)
