@@ -8,7 +8,7 @@
   if (min(SplitPositions)<1||max(SplitPositions)>ncol(d))
     stop("values in Splitpositions should lie between 1 and ncol(d)")
   if (length(categories) != n)
-    stop("We need length of qtl to be the same as the number of samples")
+    stop("We need length of categories to be the same as the number of samples")
   
   maxedges<- 4*(n-1)
   ncat <- max(categories)

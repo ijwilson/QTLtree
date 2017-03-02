@@ -18,19 +18,25 @@ Split(d, cases, SplitPositions, positions)
   \item{positions}{ Positions for the sites given in \code{d} }
 }
 
-\details{
-  ~~ If necessary, more details than the description above ~~
-}
 
 \value{
-  ~Describe the value returned
-  If it is a LIST, use
-  \item{comp1 }{Description of 'comp1'}
-  \item{comp2 }{Description of 'comp2'}
+A list with the following elements.
+  \item{tree }{A tree of class \code{ape:phylo} which can be plotted by the \code{ape} library}
+  \item{nodepos}{A vector which gives the ordering of the internal nodes of the tree.}
+  \item{ccnode}{Matrix of the number of cases and controls at each internal node of the tree.}
+  \item{cctip}{Matrix of the numbers of cases and controls at each leaf}
+  \item{n}{Total Number of samples on the tree}
+  \item{cases}{Vector of indices of cases}
+  \item{labels}{a list whihc gives the indicies of all the samples at each leaf.}
   ...
 }
 
-\references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} }
+\references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} 
+
+I. J. Wilson, R. A. J. Howey, D. T. Houniet and M. Santibanez-Koref.  BMC
+Proceedings. vol. 5(supp 9):S98 2011.
+
+}
 
 \author{ Ian Wilson \email{Ian.Wilson@ncl.ac.uk}}
 

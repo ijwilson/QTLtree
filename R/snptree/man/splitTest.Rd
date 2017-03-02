@@ -50,42 +50,49 @@ Proceedings. vol. 5(supp 9):S98 2011.
   sesible to add them in a set order either as distance away from a
   fixed point or sequentially along the haplotypes.  Test statistics available are
   
-S The Sevon test statistic
+\describe{
+\item{S}{The Sevon test statistic}
+\item{Q}{The sQuared Sevon statistic}
+\item{A}{The Absolute Sevon test statistic}
+\item{G}{a G-test statistic}
+\item{P}{The exact binomial tail probability}
+\item{N}{A Normalised exact binomial tail probability (G test statistic)}
+\item{T}{The Tree test statistic}
+\item{C}{The ’Cherries’ test statistic}
+\item{H}{The ’Height’ test statistic}
+}
 
-Q the squared Sevon statistic
-
-A the absolute Sevon test statistic
-
-G a G-test statistic
-
-P the exact binomial tail probability
-
-N a normalised exact binomial tail probability (G test statistic)
-
-T The Tree test statistic
-
-C The ’Cherries’ test statistic
-
-H The ’Height’ test statistic
-  
   
   
 }
 \examples{
 library(snptree)
 data(snptreeExample)
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="Sevon")
+## We can see that there appears to be som erelation by looking at a
+## Table of haplotypes by acse and control
+haplotype <- apply(haps, 1, paste, collapse="")
+table(haplotype, sample)
+chisq.test(table(haplotype, sample), simulate=TRUE, B=2000)
+## We should be able to repeat this by looking at the tips of
+## out haplotype tree only, whihc we can do by setting maxk=45
+s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="G", maxk=45)
 print(s$p.value)
 
 s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="AbsSevon")
+print(s$p.value)
+
+## try with a random sample of cases
+random_cases <- sort(sample(nrow(haps), size=nrow(haps)/2, replace=FALSE))
+s <- splitTest(haps , reps=1000, pickStat="G")
 print(s$p.value)
 
 s <- splitTest(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
 print(s$p.value)
 
 print(s$p.value)
+
 hapstr <- apply(haps, 1, paste, collapse="")
-chisq.test(table(hapstr, sample), simulate=TRUE)
+chisq.test(table(hapstr, sample), simulate=TRUE, B=20000)
 
 }
 \keyword{ htest }
