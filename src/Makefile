@@ -37,7 +37,7 @@ fastsplitb:	$(splitfiles)  fastsplitb.o read_csv.o  FSData.o
 
 
 RandomisedCases.o:	RandomisedCases.cpp RandomisedCases.h gsl_rand.h
-quicksplit.o:	quicksplit.cc splitter.h  binode.h
+fastsplitb.o:	fastsplitb.cc splitter.h  binode.h
 FSData.o:	FSData.h read_csv.h
 newio.o:	newio.cpp newio.h
 QTLtree.o:		FSData.h QTLtree.cc options.h splitter.h binode.h closest.h
