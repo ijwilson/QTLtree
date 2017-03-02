@@ -1,3 +1,6 @@
 *.o
 bin/
 .Rproj.user
+snptree.Rcheck
+snptree*.tar.gz
+

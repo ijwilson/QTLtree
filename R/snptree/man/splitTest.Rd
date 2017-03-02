@@ -36,7 +36,13 @@ splitTest(d, cases, positions, maxk = 4, reps = 1000)
   \item{leaves}{The number of leaves - the number of multi-locus haplotypes}
   \item{pickStat}{The Statistic used to test significance in the randomisation test}
 }
-\references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} }
+\references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} 
+
+I. J. Wilson, R. A. J. Howey, D. T. Houniet and M. Santibanez-Koref.  BMC
+Proceedings. vol. 5(supp 9):S98 2011.
+
+
+}
 \author{ Ian Wilson \email{Ian.Wilson@ncl.ac.uk}}
 \note{
   The test statistic and p-value will depend on the order in
