@@ -31,6 +31,11 @@ QTLtree:	 $(splitfiles) 	QTLtree.o read_csv.o  FSData.o
 fastsplit:	 $(splitfiles) 	fastsplit.o read_csv.o  FSData.o
 		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o fastsplit.o  read_csv.o -o ../bin/fastsplit  $(LDFLAGS)
 
+
+fastsplitb:	$(splitfiles)  fastsplitb.o read_csv.o  FSData.o
+		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o fastsplitb.o  read_csv.o -o ../bin/fastsplitb  $(LDFLAGS)
+
+
 RandomisedCases.o:	RandomisedCases.cpp RandomisedCases.h gsl_rand.h
 quicksplit.o:	quicksplit.cc splitter.h  binode.h
 FSData.o:	FSData.h read_csv.h
