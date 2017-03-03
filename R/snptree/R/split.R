@@ -34,6 +34,13 @@
           ,nodepos=as.integer(numeric(2*n))
           ,PACKAGE="snptree")
   
+  haplotype_string <- apply(d, 1, paste, collapse="")
+  firstlabel <- sapply(labs, function(x) x[1]+1 )  ## haplotypes at the 
+                                                   ## tips of the tree
+  
+  tip_haplotypes <- haplotype_string[firstlabel,]
+  
+  
   leaves <- a$leaves
   nedge <- 4*(leaves-1)
   
@@ -42,9 +49,9 @@
   ccleaf <- matrix(a$ccleaf[1:(2*leaves)],ncol=2,byrow=FALSE)
   
   nl <- rowSums(ccleaf)
-  labs <- tapply(a$labels, rep(1:leaves,nl), c)
+  labs <- tapply(a$labels, rep(1:leaves, nl), c)
     
-  bb <- list(edge=edge,Nnode=leaves-1,edge.length=rep(1,2*(leaves-1)),tip.label=labs)
+  bb <- list(edge=edge, Nnode=leaves-1, edge.length=rep(1,2*(leaves-1)), tip.label=labs)
   class(bb) <- c("phylo")
   
   if (!quiet) cat(leaves," leaves on tree\n")

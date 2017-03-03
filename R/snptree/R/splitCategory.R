@@ -31,17 +31,15 @@
           ,as.integer(ncat)
           ,PACKAGE="snptree")
   
-  #print(a)
-  
   leaves <- a$leaves
   nedge <- 4*(leaves-1)
   
   edge <- matrix(a$edge[1:(4*(leaves-1))],ncol=2,byrow=FALSE)
   
-  print(length(a$labels))
-  print(leaves)
-  print(a$leafcount[1:leaves])
-  labs <- tapply(a$labels,rep(1:leaves,a$leafcount[1:leaves]),c)
+#  print(length(a$labels))
+#  print(leaves)
+#  print(a$leafcount[1:leaves])
+  labs <- tapply(a$labels, rep(1:leaves, a$leafcount[1:leaves]), c)
   
   nodepos <- matrix(a$nodepos[1:(2*(leaves-1))],ncol=2,byrow=T)+1	
   NodePos <- list(left=nodepos[,1],right=nodepos[,2])
@@ -49,7 +47,7 @@
   tippos <- matrix(a$tippos[1:(2*leaves)],ncol=2,byrow=T)+1
   TipPos <- list(left=tippos[,1],right=tippos[,2])
   
-  bb <- list(edge=edge,Nnode=leaves-1,edge.length=rep(1,2*(leaves-1)),tip.label=labs)
+  bb <- list(edge=edge, Nnode=leaves-1, edge.length=rep(1,2*(leaves-1)), tip.label=labs)
   class(bb) <- c("phylo")
   
   if (!quiet) cat(leaves," leaves on tree\n")

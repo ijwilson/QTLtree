@@ -66,15 +66,23 @@ extern "C" {
     // positions[0].
     std::vector<int> nodePos;
     s.getNodesPositions(nodePos);
-	for (size_t ii=0;ii<nodePos.size();ii++) nodepos[ii]=nodePos[ii];
+	  for (size_t ii=0;ii<nodePos.size();ii++) nodepos[ii]=nodePos[ii];
   }
   
   /** C code to perform the bulk of the test work                             */
-  void splitTest(int *data, int *samplesize, int *nSNP, int *positions, int *npos, int *cases
-                 , int *ncases, int *reps, int *maxk, double *teststat, double *randteststats
-                 ,int *nterm, char **statPick) {
+  void splitTest(int *data, 
+                 int *samplesize, 
+                 int *nSNP, 
+                 int *positions, 
+                 int *npos, 
+                 int *cases, int *ncases, 
+                 int *reps, int *maxk, 
+                 double *teststat, 
+                 double *randteststats,
+                 int *nterm, 
+                 char **statPick) {
     
-    TNT::Array2D<int> d(*samplesize,*nSNP,data);
+    TNT::Array2D<int> d(*samplesize, *nSNP, data);
     splitter<int> s(d,d.dim1(),d.dim2());
     for (int i=0;i<*npos;i++) s.split(positions[i]);
     

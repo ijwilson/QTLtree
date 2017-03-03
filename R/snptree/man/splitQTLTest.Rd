@@ -1,30 +1,26 @@
-\name{splitTest}
-\alias{splitTest}
+\name{splitQTLTest}
+\alias{splitQTLTest}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Test of Association using a tree of haplotypes}
+\title{ Test of Association between haplotype and a quantitative trait}
 \description{
-   Function to test for assosiation using Case and control status by
- building a tree of haplotypes.  
+   Function to test for association using qtl by building a tree of haplotypes.  
 }
 \usage{
-splitTest(d, cases, positions, maxk = 4, reps = 1000)
+splitQTLTest(d, trait, positions, maxk = 4, reps = 1000)
 }
 \arguments{
   \item{d}{ A matrix of haplotypes with samples by row }
-  \item{cases}{ A matrix giving the labels of the cases.  By default the
-    last half of the sample are cases - note that the algorithm is
-    symmetric between cases and controls.}
+  \item{trait}{A vector fiving the continuous trait associated with each individual.}
   \item{reps}{The number of permutations to test the significance with}
   \item{positions}{ The positions (and their order) to build the
     haplotype tree}
   \item{maxk}{The maximum value for k in the test statistic}
-    \item{pickStat}{The Statistic used to test significance in the randomisation test}
-
+  \item{pickStat}{The test statistic to use}
 }
 \details{
   The test is currently written with test statistic which is the
   number of nodes on the tree (both internal and leaves which contain
-  more than one haplotype) that include both cases and controls..  Extreme
+  more than one haplotype) that include both cases and controls.  Extreme
   values of this test statistic are low.  This test is done for haplotypes, so is
  suitable for mtDNA and Y chromosome based tests.  For autosomal
  haplotypes one would want to use a randomisation procedure that
@@ -36,6 +32,7 @@ splitTest(d, cases, positions, maxk = 4, reps = 1000)
   \item{randTestStat}{The randomised Test Statistics}
   \item{p.value}{The p value (from simulation) from 1 to maxk}
   \item{leaves}{The number of leaves - the number of multi-locus haplotypes}
+  \item{pickStat}{The Statistic used to test significance in the randomisation test}
 }
 \references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} 
 
@@ -57,15 +54,10 @@ Sevon P, Toivonen H, Ollikainen V: TreeDT: tree pattern mining for gene mapping.
   fixed point or sequentially along the haplotypes.  Test statistics available are
   
 \describe{
-\item{S}{The Sevon test statistic, described in Sevon et al}
-\item{Q}{The sQuared Sevon statistic.  The Sevon statistic Squared}
+\item{Z}{The Sevon test statistic, described in Sevon et al}
 \item{A}{The Absolute Sevon test statistic.  The absolute value of the Sevon statistic.}
-\item{G}{a G-test statistic}
-\item{P}{The exact binomial tail probability}
+\item{P}{a G-test statistic}
 \item{N}{A Normalised exact binomial tail probability (G test statistic)}
-\item{T}{The Tree test statistic}
-\item{C}{The ’Cherries’ test statistic}
-\item{H}{The ’Height’ test statistic}
 }
 
 }
@@ -74,29 +66,20 @@ library(snptree)
 data(snptreeExample)
 ## We can see that there appears to be some relation by looking at a
 ## Table of haplotypes by Case and control
-haplotype <- apply(haps, 1, paste, collapse="")
-table(haplotype, sample)
-chisq.test(table(haplotype, sample), simulate=TRUE, B=2000)
-## We should be able to repeat this by looking at the tips of
-## out haplotype tree only, whihc we can do by setting maxk=45
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="G", maxk=45)
-print(s$p.value)
+library(snptree)
+data(snptreeExample)
+## We can see that there appears to be some relation by looking at a
+## Table of haplotypes by Case and control
 
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="AbsSevon")
-print(s$p.value)
+qtl <- rnorm(nrow(haps))
+tst <- splitQTLTest(haps,qtl)
+tst$p.value
 
-## try with a random sample of cases
-random_cases <- sort(sample(nrow(haps), size=nrow(haps)/2, replace=FALSE))
-s <- splitTest(haps , reps=1000, pickStat="G")
-print(s$p.value)
-
-s <- splitTest(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
-print(s$p.value)
-
-print(s$p.value)
-
-hapstr <- apply(haps, 1, paste, collapse="")
-chisq.test(table(hapstr, sample), simulate=TRUE, B=20000)
+## now add a small value equal to 1/5 of a standard deviaito nto all those in
+## the last haplotype
+qtl[s$labels[['45']]+1] <- qtl[s$labels[['45']]+1] + 0.1
+tst <- splitQTLTest(haps,qtl)
+tst$p.value
 
 }
 \keyword{ htest }
