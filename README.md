@@ -21,3 +21,9 @@ PLoS Genet 10 (5), e1004369]
 (http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004369)
 
 The code here can be used as a stand alone program and also is part of an R library.  
+
+This is partially based on ideas in the paper
+
+Sevon P, Toivonen H, Ollikainen V: TreeDT: tree pattern mining for gene mapping. IEEE/ACM Trans Comput Biol Bioinform. 2006, 3: 174-185.
+
+
