@@ -34,13 +34,11 @@
           ,qtlleaf = as.double(numeric(n))
           ,PACKAGE="snptree")
   
+  
   leaves <- a$leaves
   nedge <- 4*(leaves-1)
   
   edge <- matrix(a$edge[1:(4*(leaves-1))],ncol=2,byrow=FALSE)
-  
-  
-  
   labs <- tapply(a$labels,rep(1:leaves,a$leafcount[1:leaves]),c)
   
   nodepos <- matrix(a$nodepos[1:(2*(leaves-1))],ncol=2,byrow=T)+1	
@@ -53,9 +51,16 @@
   class(bb) <- c("phylo")
   
   if (!quiet) cat(leaves," leaves on tree\n")
-  b <- list(tree=bb,nodepos=NodePos,tippos=TipPos
-            ,leafcount=a$leafcount[1:leaves],nodecount=a$leafcount[(leaves+1):(2*leaves)],
-            qtlnode=a$qtlnode[1:(leaves-1)],qtlleaf=a$qtlleaf[1:leaves],n=n,labels=labs)
+  b <- list(tree=bb,
+            nodepos=NodePos,
+            tippos=TipPos
+            ,leafcount=a$leafcount[1:leaves],
+            nodecount=a$leafcount[(leaves+1):(2*leaves)],
+            qtlnode=a$qtlnode[1:(leaves-1)],
+            qtlleaf=a$qtlleaf[1:leaves],
+            n=n,
+            labels=labs
+            )
   class(b) <- "splitqtl"
   b
 }
@@ -76,6 +81,9 @@
     stop("number of QTLs does not match number of haplotypes")
   }
   
+  if (!(pickStat %in% c("A","Z","P","N"))) {
+    stop("Error, statPick should be one of A,P,Z,N")
+  }
   
   a <- .C("splittestQTL"
           ,as.integer(t(d))
@@ -92,6 +100,7 @@
           ,as.character(pickStat)
           ,PACKAGE="snptree")
   
+
   
   rs <- matrix(a$randteststats, ncol=maxk, byrow=TRUE)
   

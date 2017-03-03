@@ -17,6 +17,17 @@ tst$p.value
 class(s)
 plot(s)
 
+## Try with a different statistic
+## now add a small value equal to 1/5 of a standard deviaito nto all those in
+## the last haplotype
+
+tst <- splitQTLTest(haps,qtl, pickStat = "A")
+tst$p.value
+
+
+tst <- splitQTLTest(haps,qtl, pickStat = "G")
+tst$p.value
+
 
 ## category needs to be fixed to remove extra information being printed.
 catData <- sample(1:5, nrow(haps), replace=T)
