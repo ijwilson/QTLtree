@@ -1,5 +1,5 @@
 
-"Split" <- function(d, cases, SplitPositions, positions, quiet=TRUE)
+"splitCaseControl" <- function(d, cases, SplitPositions, positions, quiet=TRUE)
 {
   if (missing(SplitPositions))  SplitPositions <- 1:ncol(d)
   if (missing(positions)) positions <- 1:ncol(d)
@@ -18,7 +18,7 @@
   if (missing(cases))   cases <- (n/2+1):n
   maxedges<- 4*(n-1)
   
-  a <- .C("GetSplit"
+  a <- .C("GetSplitCC"
           ,as.integer(t(d))
           ,as.integer(n)
           ,as.integer(ncol(d))
@@ -59,7 +59,7 @@
   b <- list(tree=bb, nodepos=a$nodepos[1:(leaves-1)]+1,
             ccnode=ccnode, cctip=ccleaf, n=n, cases=cases, labels=labs)
   
-  class(b) <- "split"
+  class(b) <- c("splitCC","split")
   b
 }
 

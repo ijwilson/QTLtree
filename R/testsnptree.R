@@ -4,8 +4,13 @@ qtl <- rnorm(nrow(haps))
 s <- SplitQTL(haps, qtl)
 
 qtl <- rnorm(nrow(haps))
-qtl[s$labels[['45']]+1] <- qtl[s$labels[['45']]+1] + 0.1
-tst <- splitQTLTest(haps,qtl)
+qtlb <- qtl
+qtlb[s$labels[['45']]+1] <- qtlb[s$labels[['45']]+1] + 0.1
+qtlb[s$labels[['41']]+1] <- qtlb[s$labels[['41']]+1] - 0.2
+qtlb[s$labels[['36']]+1] <- qtlb[s$labels[['36']]+1] - 0.2
+sb <- SplitQTL(haps, qtlb)
+plot(sb)
+tst <- splitQTLTest(haps, qtlb)
 tst$p.value
 
 ## now add a small value equal to 1/5 of a standard deviaito nto all those in

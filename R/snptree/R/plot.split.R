@@ -1,6 +1,18 @@
 
-
 plot.split <-
+  function (a, pie = FALSE, length = FALSE) 
+  {
+    #require(ape)
+    plot(a$tree, show.tip.label = FALSE)
+    n <- sapply(s$labels, length)
+      tiplabels(n, adj = -0.2, cex = 0.6, font = 2, 
+                bg = "white")
+    }
+
+
+
+
+plot.splitCC <-
   function (a, pie = FALSE, length = FALSE) 
 {
   #require(ape)
