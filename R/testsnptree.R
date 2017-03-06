@@ -1,8 +1,9 @@
 library(snptree)
 data(snptreeExample)
 
-simple <- splitSimple(haps)
-plot(simple)
+simple <- split_simple(haps)
+plot(simple)                ## this just plots the numbers for each haplotype
+
 simple$tip.haplotypes
 data.frame(haps = simple$tip.haplotypes, n=sapply(simple$labels, length))
 
@@ -13,19 +14,18 @@ class(s)
 class(s$tree)
 plot(s)
 trait2 <- trait1
-trait2[s$labels[['45']]] <- trait2[s$labels[['45']]] + 0.1
-trait2[s$labels[['41']]] <- trait2[s$labels[['41']]] - 0.2
-trait2[s$labels[['36']]] <- trait2[s$labels[['36']]] - 0.2
+trait2[s$labels[['45']]] <- trait2[s$labels[['45']]] + 0.15
+trait2[s$labels[['41']]] <- trait2[s$labels[['41']]] - 0.15
+trait2[s$labels[['36']]] <- trait2[s$labels[['36']]] - 0.15
 sb <- split_qtrait(haps, trait2)
 plot(sb)
 
 tst <- splitQTLTest(haps, trait2)
 tst$p.value
+## We would expect that the third p-value would be the the that compares best with
+## Other methods, are there are 3 terminal nodes that have a systematic change
 
-
-## Try with a different statistic
-## now add a small value equal to 1/5 of a standard deviaito nto all those in
-## the last haplotype
+## Try with a different statistic.  The default is "A"
 
 tst <- splitQTLTest(haps, trait2, pickStat = "N")
 tst$p.value
@@ -36,13 +36,14 @@ tst$p.value
 tst <- splitQTLTest(haps, trait2, pickStat = "Z")
 tst$p.value
 
-tst <- splitQTLTest(haps, trait2, pickStat = "A")
-tst$p.value
+
 #################################################
 catData <- sample(1:5, nrow(haps), replace=T)
 category <- split_category(haps, catData)
 class(category)
 plot(category)
+## test not defined
+
 
 #################################################
 
