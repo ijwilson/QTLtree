@@ -70,7 +70,7 @@ extern "C" {
   }
   
   /** C code to perform the bulk of the test work                             */
-  void splitTest(int *data, 
+  void splitTestCC(int *data, 
                  int *samplesize, 
                  int *nSNP, 
                  int *positions, 

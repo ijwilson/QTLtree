@@ -40,7 +40,10 @@ tst <- splitQTLTest(haps, trait2, pickStat = "A")
 tst$p.value
 #################################################
 catData <- sample(1:5, nrow(haps), replace=T)
-category <- SplitCategory(haps, catData)
+category <- split_category(haps, catData)
+class(category)
+plot(category)
+
 #################################################
 
 ## We can see that there appears to be some relation by looking at a

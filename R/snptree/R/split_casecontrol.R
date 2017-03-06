@@ -1,5 +1,5 @@
 
-"splitCaseControl" <- function(d, cases, SplitPositions, positions, quiet = TRUE) {
+"split_casecontrol" <- function(d, cases, SplitPositions, positions, quiet = TRUE) {
     if (missing(SplitPositions)) 
         SplitPositions <- 1:ncol(d)
     if (missing(positions)) 
@@ -63,9 +63,21 @@
     
     n <- nrow(d)
     
-    a <- .C("splitTest", as.integer(t(d)), as.integer(n), as.integer(ncol(d)), as.integer(positions - 1), as.integer(length(positions)), 
-        as.integer(cases), as.integer(length(cases)), as.integer(reps), as.integer(maxk), teststat = as.double(numeric(maxk)), 
-        randteststats = as.double(numeric(maxk * reps)), leaves = as.integer(numeric(1)), as.character(pickStat), PACKAGE = "snptree")
+    a <- .C("splitTestCC", 
+            as.integer(t(d)), 
+            as.integer(n), 
+            as.integer(ncol(d)), 
+            as.integer(positions - 1), 
+            as.integer(length(positions)), 
+            as.integer(cases), 
+            as.integer(length(cases)), 
+            as.integer(reps), 
+            as.integer(maxk), 
+            teststat = as.double(numeric(maxk)), 
+            randteststats = as.double(numeric(maxk * reps)), 
+            leaves = as.integer(numeric(1)), 
+            as.character(pickStat), 
+            PACKAGE = "snptree")
     
     rs <- matrix(a$randteststats, ncol = maxk, byrow = TRUE)
     

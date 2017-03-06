@@ -40,6 +40,10 @@ plot.splitqtrait <- function(a, length = FALSE, ...) {
     nodelabels(round(a$node_val, 2), cex = 0.5)
     tiplabels(round(a$leaf_val, 2), cex = 0.5)
 }
-80
-60
-40
+
+
+plot.splitcategory <- function(a, pie = TRUE, length = FALSE) {
+  plot(a$tree, show.tip.label = FALSE)
+  tiplabels(pie=a$leafcat)
+}
+
