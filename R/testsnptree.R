@@ -1,76 +1,75 @@
 library(snptree)
 data(snptreeExample)
-qtl <- rnorm(nrow(haps))
-s <- SplitQTL(haps, qtl)
 
-qtl <- rnorm(nrow(haps))
-qtlb <- qtl
-qtlb[s$labels[['45']]+1] <- qtlb[s$labels[['45']]+1] + 0.1
-qtlb[s$labels[['41']]+1] <- qtlb[s$labels[['41']]+1] - 0.2
-qtlb[s$labels[['36']]+1] <- qtlb[s$labels[['36']]+1] - 0.2
-sb <- SplitQTL(haps, qtlb)
-plot(sb)
-tst <- splitQTLTest(haps, qtlb)
-tst$p.value
+simple <- splitSimple(haps)
+plot(simple)
+simple$tip.haplotypes
+data.frame(haps = simple$tip.haplotypes, n=sapply(simple$labels, length))
 
-## now add a small value equal to 1/5 of a standard deviaito nto all those in
-## the last haplotype
-qtl[s$labels[['45']]+1] <- qtl[s$labels[['45']]+1] + 0.1
-tst <- splitQTLTest(haps,qtl)
-tst$p.value
-
+## QTL test
+trait1 <- rnorm(nrow(haps))                ## get a random trait
+s <- split_qtrait(haps, trait1)
 class(s)
+class(s$tree)
 plot(s)
+trait2 <- trait1
+trait2[s$labels[['45']]] <- trait2[s$labels[['45']]] + 0.1
+trait2[s$labels[['41']]] <- trait2[s$labels[['41']]] - 0.2
+trait2[s$labels[['36']]] <- trait2[s$labels[['36']]] - 0.2
+sb <- split_qtrait(haps, trait2)
+plot(sb)
+
+tst <- splitQTLTest(haps, trait2)
+tst$p.value
+
 
 ## Try with a different statistic
 ## now add a small value equal to 1/5 of a standard deviaito nto all those in
 ## the last haplotype
 
-tst <- splitQTLTest(haps,qtl, pickStat = "A")
+tst <- splitQTLTest(haps, trait2, pickStat = "N")
 tst$p.value
 
-
-tst <- splitQTLTest(haps,qtl, pickStat = "G")
+tst <- splitQTLTest(haps, trait2, pickStat = "P")
 tst$p.value
 
+tst <- splitQTLTest(haps, trait2, pickStat = "Z")
+tst$p.value
 
-## category needs to be fixed to remove extra information being printed.
+tst <- splitQTLTest(haps, trait2, pickStat = "A")
+tst$p.value
+#################################################
 catData <- sample(1:5, nrow(haps), replace=T)
 category <- SplitCategory(haps, catData)
 #################################################
-library(snptree)
-data(snptreeExample)
+
 ## We can see that there appears to be some relation by looking at a
 ## Table of haplotypes by Case and control
 haplotype <- apply(haps, 1, paste, collapse="")
 table(haplotype, sample)
 chisq.test(table(haplotype, sample), simulate=TRUE, B=2000)
 ## Compare this to a split tree
-tr <- Split(haps, which(sample=="Case"))
+tr <- splitCaseControl(haps, which(sample=="Case"))
 
-firstlabel <- sapply(tr$labels, function(x) x[1]+1 )  ## haplotypes at the 
-table(haplotype[firstlabel] == rownames(table(haplotype, sample))) 
+firstlabel <- sapply(tr$labels, function(x) x[1])  ## haplotypes at the 
+table(haplotype[firstlabel] == rownames(table(haplotype, sample))) ## Order is  the same for 0/1 trees
 ## tips of the tree are equvalent to the lexical splitting of the haplotypes
 
-tip_haplotypes <- haplotype_string[firstlabel,]
+tip_haplotypes <- haplotype[firstlabel]
 
 ## We should be able to repeat this by looking at the tips of
 ## out haplotype tree only, whihc we can do by setting maxk=45
 
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="G", maxk=45)
+s <- splitTestCC(haps, which(sample=="Case"), reps=1000, pickStat="G", maxk=5)
 print(s$p.value)
 
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="AbsSevon")
+s <- splitTestCC(haps, which(sample=="Case"), reps=1000, pickStat="AbsSevon")
 print(s$p.value)
 
 ## try with a random sample of cases
 random_cases <- sort(sample(nrow(haps), size=nrow(haps)/2, replace=FALSE))
-s <- splitTest(haps , reps=1000, pickStat="G")
+s <- splitTestCC(haps , reps=1000,  cases =random_cases, pickStat="G")
 print(s$p.value)
 
-s <- splitTest(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
+s <- splitTestCC(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
 print(s$p.value)
-
-
-
-haplotypestring <- function(tr, )

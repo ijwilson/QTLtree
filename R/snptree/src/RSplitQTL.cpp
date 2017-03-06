@@ -104,7 +104,7 @@ extern "C" {
       leafcount[ii] = static_cast<int>(labels[ii].size());
       for (int jj=0;jj<leafcount[ii];jj++) {
         sum += qtl[labels[ii][jj]];
-        comblabels[count++] = labels[ii][jj];
+        comblabels[count++] = labels[ii][jj]+1;
       }
       leafstat[ii] =  (sum/leafcount[ii]-xbar)/sqrt(s2/leafcount[ii]);
     }

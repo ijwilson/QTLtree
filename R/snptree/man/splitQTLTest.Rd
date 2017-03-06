@@ -6,11 +6,11 @@
    Function to test for association using qtl by building a tree of haplotypes.  
 }
 \usage{
-splitQTLTest(d, trait, positions, maxk = 4, reps = 1000)
+splitQTLTest(haplotypes, qtrait, positions, maxk = 4, reps = 1000)
 }
 \arguments{
-  \item{d}{ A matrix of haplotypes with samples by row }
-  \item{trait}{A vector fiving the continuous trait associated with each individual.}
+  \item{haplotypes}{ A matrix of haplotypes with samples by row }
+  \item{qtrait}{A vector giving the continuous trait associated with each individual.}
   \item{reps}{The number of permutations to test the significance with}
   \item{positions}{ The positions (and their order) to build the
     haplotype tree}

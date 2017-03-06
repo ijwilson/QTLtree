@@ -36,10 +36,11 @@ extern "C" {
     // get the edges and labels in a form for ape
     std::vector<std::pair<int,int> > edges;
     std::vector<std::vector<int> > labels;
-    s.apesplit(edges,labels);     
+    s.apesplit(edges,labels);  
+    
     int nedges=static_cast<int>(edges.size());
     if (nedges!=2*(*len-1))
-      throw std::range_error("problem in GetSplit\n");
+      throw std::range_error("problem in GetCategorySplit\n");
     
     for (int i=0;i<nedges;i++) {
       edge[i]=edges[i].first;

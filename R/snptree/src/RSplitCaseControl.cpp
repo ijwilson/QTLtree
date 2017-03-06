@@ -59,7 +59,7 @@ extern "C" {
     for (int i=0;i<*len;i++) {
       ccleaf[i]=count_intersection(labels[i],cases,*ncases);
       ccleaf[*len+i] = labels[i].size()-ccleaf[i];
-      for (size_t j=0;j<labels[i].size();j++) comblabels[count++] = labels[i][j];
+      for (size_t j=0;j<labels[i].size();j++) comblabels[count++] = labels[i][j]+1;
     }   
     s.getCaseControlNodes(ccnode,cases,*ncases,nedges/2);
     // now try to get the lengths.  Note that the centre of this split is 
