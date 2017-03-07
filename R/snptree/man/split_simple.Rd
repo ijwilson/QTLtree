@@ -15,9 +15,6 @@ split_simple(d, SplitPositions, positions, quiet = TRUE)
   \item{SplitPositions}{ The order in which to split the haplotypes }
   \item{positions}{ Positions for the sites given in \code{d} }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 
 
 \value{
@@ -37,10 +34,6 @@ Proceedings. vol. 5(supp 9):S98 2011.
 }
 \author{ Ian Wilson \email{Ian.Wilson@ncl.ac.uk}}
 
-\note{
-%%  ~~further notes~~
-}
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
@@ -49,6 +42,7 @@ Proceedings. vol. 5(supp 9):S98 2011.
 \examples{
 data(snptreeExample)
 s <- split_simple(haps)
+class(s)
 plot(s)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
