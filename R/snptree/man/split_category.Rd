@@ -21,16 +21,13 @@ split_qtrait(d, qtrait, SplitPositions, positions, quiet = TRUE)
 %%     ~~Describe \code{categories} here~~
 }
 \item{qtrait}{
-  \item{qtrait}{A vector giving the continuous trait associated with each individual.}
+  A vector giving the continuous trait associated with each individual.
 }
-  \item{SplitPositions}{
-%%     ~~Describe \code{SplitPositions} here~~
-}
-  \item{positions}{
-%%     ~~Describe \code{positions} here~~
-}
+ \item{SplitPositions}{ The order in which to split the haplotypes }
+  \item{positions}{ Positions for the sites given in \code{d} }
   \item{quiet}{
 if \code{quiet} is \code{FALSE}, then no extra information is printed from this function.
+}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -51,6 +48,7 @@ if \code{quiet} is \code{FALSE}, then no extra information is printed from this 
 \seealso{
 \code{\link{split_simple}}, \code{\link{split_casecontrol}}
 }
+
 \examples{
 data(snptreeExample)
 

@@ -42,9 +42,6 @@ catData <- sample(1:5, nrow(haps), replace=T)
 category <- split_category(haps, catData)
 class(category)
 plot(category)
-## test not defined
-
-
 #################################################
 
 ## We can see that there appears to be some relation by looking at a
@@ -53,7 +50,8 @@ haplotype <- apply(haps, 1, paste, collapse="")
 table(haplotype, sample)
 chisq.test(table(haplotype, sample), simulate=TRUE, B=2000)
 ## Compare this to a split tree
-tr <- splitCaseControl(haps, which(sample=="Case"))
+tr <- split_casecontrol(haps, which(sample=="Case"))
+plot(tr)
 
 firstlabel <- sapply(tr$labels, function(x) x[1])  ## haplotypes at the 
 table(haplotype[firstlabel] == rownames(table(haplotype, sample))) ## Order is  the same for 0/1 trees
@@ -77,3 +75,4 @@ print(s$p.value)
 
 s <- splitTestCC(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
 print(s$p.value)
+
