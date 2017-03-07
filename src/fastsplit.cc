@@ -5,7 +5,6 @@
  
 #include "splitter.h"
 #include "BeagleData.h"
-#include "tnt/tnt.h"
 #include "options.h"
 #include "newio.h"
 #include "gsl_rand.h"
