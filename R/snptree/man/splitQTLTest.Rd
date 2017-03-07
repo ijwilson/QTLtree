@@ -68,17 +68,19 @@ data(snptreeExample)
 ## Table of haplotypes by Case and control
 library(snptree)
 data(snptreeExample)
+s <- split_simple(haps)
 ## We can see that there appears to be some relation by looking at a
 ## Table of haplotypes by Case and control
 
-qtl <- rnorm(nrow(haps))
-tst <- splitQTLTest(haps,qtl)
+
+trait1 <- rnorm(nrow(haps))
+tst <- splitQTLTest(haps, trait1)
 tst$p.value
 
-## now add a small value equal to 1/5 of a standard deviaito nto all those in
+## now add a small value equal to 1/5 of a standard deviation nto all those in
 ## the last haplotype
-qtl[s$labels[['45']]+1] <- qtl[s$labels[['45']]+1] + 0.1
-tst <- splitQTLTest(haps,qtl)
+trait1[s$labels[['45']]] <- trait1[s$labels[['45']]] + 0.2
+tst <- splitQTLTest(haps, trait1)
 tst$p.value
 
 }

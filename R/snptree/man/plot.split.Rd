@@ -30,12 +30,12 @@ No value returned.  This function called for side effect.
 
 
 \seealso{
-\code{\link{Split}}}
+\code{\link{split_casecontrol}}}, \code{\link{split_simple}}}, \\code{\link{split_category}}}, \code{\link{split_qtrait}}}
 \examples{
 data(snptreeExample)
-s <- Split(haps, which(sample=="Case"), position)
+s <- split_casecontrol(haps, which(sample=="Case"), position)
 plot(s)
-s2 <- Split(haps, which(sample=="Case"), rev(position))
+s2 <- split_casecontrol(haps, which(sample=="Case"), rev(position))
 plot(s2)
 plot(s, pie=TRUE)
 }

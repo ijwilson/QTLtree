@@ -28,7 +28,6 @@ A list with the following elements.
   \item{n}{Total Number of samples on the tree}
   \item{cases}{Vector of indices of cases}
   \item{labels}{a list whihc gives the indicies of all the samples at each leaf.}
-  ...
 }
 
 \references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} 
@@ -43,7 +42,8 @@ Proceedings. vol. 5(supp 9):S98 2011.
 \seealso{ \code{\link{splitTest}}}
 \examples{
 data(snptreeExample)
-s <- Split(haps, cases = which(sample=="Case"))
+s <- split_casecontrol(haps, cases = which(sample=="Case"))
+class(s)
 plot(s)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

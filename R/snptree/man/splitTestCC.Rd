@@ -1,5 +1,5 @@
-\name{splitTest}
-\alias{splitTest}
+\name{splitTestCC}
+\alias{splitTestCc}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Test of Association using a tree of haplotypes}
 \description{
@@ -7,7 +7,7 @@
  building a tree of haplotypes.  
 }
 \usage{
-splitTest(d, cases, positions, maxk = 4, reps = 1000)
+splitTestCC(d, cases, positions, maxk = 4, reps = 1000)
 }
 \arguments{
   \item{d}{ A matrix of haplotypes with samples by row }
@@ -79,24 +79,19 @@ table(haplotype, sample)
 chisq.test(table(haplotype, sample), simulate=TRUE, B=2000)
 ## We should be able to repeat this by looking at the tips of
 ## out haplotype tree only, whihc we can do by setting maxk=45
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="G", maxk=45)
+s <- splitTestCC(haps, which(sample=="Case"), reps=1000, pickStat="G", maxk=45)
 print(s$p.value)
 
-s <- splitTest(haps, which(sample=="Case"), reps=1000, pickStat="AbsSevon")
+s <- splitTestCC(haps, which(sample=="Case"), reps=1000, pickStat="AbsSevon")
 print(s$p.value)
 
 ## try with a random sample of cases
 random_cases <- sort(sample(nrow(haps), size=nrow(haps)/2, replace=FALSE))
-s <- splitTest(haps , reps=1000, pickStat="G")
+s <- splitTestCC(haps , reps=1000, pickStat="G")
 print(s$p.value)
 
-s <- splitTest(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
+s <- splitTestCC(haps, which(sample=="Case"), reps=10000, pickStat="Gtest")
 print(s$p.value)
-
-print(s$p.value)
-
-hapstr <- apply(haps, 1, paste, collapse="")
-chisq.test(table(hapstr, sample), simulate=TRUE, B=20000)
 
 }
 \keyword{ htest }

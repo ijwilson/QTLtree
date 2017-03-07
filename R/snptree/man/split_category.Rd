@@ -14,15 +14,9 @@ split_qtrait(d, qtrait, SplitPositions, positions, quiet = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{d}{
-%%     ~~Describe \code{d} here~~
-}
-  \item{categories}{
-%%     ~~Describe \code{categories} here~~
-}
-\item{qtrait}{
-  A vector giving the continuous trait associated with each individual.
-}
+    \item{d}{ A matrix of haplotypes with samples by row }
+  \item{categories}{A vector of a categories for each haplotype. }
+\item{qtrait}{ vector giving the continuous trait associated with each individual.}
  \item{SplitPositions}{ The order in which to split the haplotypes }
   \item{positions}{ Positions for the sites given in \code{d} }
   \item{quiet}{
@@ -32,12 +26,17 @@ if \code{quiet} is \code{FALSE}, then no extra information is printed from this 
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A list of class \code{splitqtrait} or \code{splitcategory} with the following elements:
+  \item{tree }{A tree of class \code{ape:phylo} which can be plotted by the \code{ape} library}
+  \item{nodepos}{A vector which gives the ordering of the internal nodes of the tree.}
+  \item{leafcount}{A vector with the number of haplotypes at each leaf.}
+  \item{node_val}{Value of the statistic at each internal node.}
+  \item{leaf_val}{Value of the statistic at each terminal leaf.}
+  \item{leafcat}{A matrrix with the number in each category at the leaves.}
+  \item{n}{Total Number of samples on the tree}
+  \item{labels}{A list which gives the indicies of all the samples at each leaf.}
 }
 \references{\url{http://www.staff.ncl.ac.uk/i.j.wilson} }
 \author{ Ian Wilson \email{Ian.Wilson@ncl.ac.uk}}

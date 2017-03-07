@@ -2,9 +2,9 @@
 \alias{split_simple}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Split a set of haplotypes}
-}
+
 \description{
-  Splits a set of haplotypes into a tree using a lexical sorting.
+  Splits a set of haplotypes into a tree using lexical sorting.
 }
 \usage{
 split_simple(d, SplitPositions, positions, quiet = TRUE)
@@ -15,7 +15,6 @@ split_simple(d, SplitPositions, positions, quiet = TRUE)
   \item{SplitPositions}{ The order in which to split the haplotypes }
   \item{positions}{ Positions for the sites given in \code{d} }
 }
-
 
 \value{
 A list with the following elements.
@@ -44,6 +43,7 @@ data(snptreeExample)
 s <- split_simple(haps)
 class(s)
 plot(s)
+data.frame(haps = simple$tip.haplotypes, n=sapply(simple$labels, length))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
