@@ -309,9 +309,9 @@ SevonStatistic <- function(x) {
   (x[1]-0.5*n)/sqrt(0.25*n)
 }
                                                               
-TerminalNodeStats <- apply(tb,2,SevonStatistic)
-tree1 <- Split(a,1:40,1:5)                    # tree Left to Right
-tree2 <- Split(a,1:40,5:1)                    # tree Right to Left
+TerminalNodeStats <- apply(tb, 2, SevonStatistic)
+tree1 <- split_casecontrol(a,1:40,1:5)                    # tree Left to Right
+tree2 <- split_casecontrol(a,1:40,5:1)                    # tree Right to Left
 @ 
 
 <<simpletesttable,echo=FALSE,results=tex>>=
@@ -332,13 +332,17 @@ plot(tree2)
 
 \subsubsection{QTLTree}
 
-We can recreate the parts of R analysis by using \QTLTree.  We do this using the command:
 <<QTLTreeA, echo=FALSE>>=
 QTLTreecommand = "fastsplitb --input=../example/simpletest --stat=S"
-res <- system2("QTLTreecommand", intern=TRUE)
+@
+
+We can recreate the parts of R analysis by using \QTLTree.  We do this using the command:
+\Sexpr{QTLTreecommand}.
+
+<<QTLTreeA2, echo=FALSE>>=
+res <- system(QTLTreecommand, intern=TRUE)
 resb <- strsplit(res," ")
-stat <- unlist(lapply(resb,function(x) x[2]))
-print(stat)
+stat <- unlist(lapply(resb, function(x) x[2]))
 @ 
 
 
