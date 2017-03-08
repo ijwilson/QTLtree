@@ -22,7 +22,8 @@ extern "C" {
                      int *positions, 
                      int *npos,
                      double *qtl,
-                     int *reps, int *maxk,
+                     int *reps, 
+                     int *maxk,
                      double *teststat,
                      double *randteststats,
                      int *nterm, 
@@ -38,7 +39,7 @@ extern "C" {
     for (size_t jj=0;jj< *maxk;jj++) teststat[jj] = stat[jj];
     
     rng r;
-    for (int i=0;i<*reps;i++) {
+    for (int i=0; i< *reps; i++) {
         permute(myqtl, r);
         std::vector<double> rstat =  s.qtlStat(myqtl, *maxk, *statPick);
         for (size_t jj=0;jj< *maxk;jj++) {

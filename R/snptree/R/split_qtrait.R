@@ -16,14 +16,22 @@
     
     maxedges <- 4 * (n - 1)
     
-    a <- .C("GetQTLSplit", as.integer(t(d)), as.integer(n), as.integer(ncol(d)), as.integer(SplitPositions - 1), as.integer(length(SplitPositions)), 
-        as.double(qtrait), edge = as.integer(numeric(maxedges)), leaves = as.integer(numeric(1))  # number of leaves
-, 
-        leafcount = as.integer(numeric(n)), labels = as.integer(numeric(n))  # labels at the leaves
-, nodepos = as.integer(numeric(2 * 
-            n))  # stuff for ape
-, tippos = as.integer(numeric(2 * n)), qtlnode = as.double(numeric(n)), 
-        qtlleaf = as.double(numeric(n)), PACKAGE = "snptree")
+    a <- .C("GetQTLSplit", 
+            as.integer(t(d)), 
+            as.integer(n), 
+            as.integer(ncol(d)), 
+            as.integer(SplitPositions - 1), 
+            as.integer(length(SplitPositions)), 
+            as.double(qtrait), 
+            edge = as.integer(numeric(maxedges)), 
+            leaves = as.integer(numeric(1)),  # number of leaves
+            leafcount = as.integer(numeric(n)),
+            labels = as.integer(numeric(n)),  # labels at the leaves
+            nodepos = as.integer(numeric(2 * n)),  # stuff for ape
+            tippos = as.integer(numeric(2 * n)), 
+            qtlnode = as.double(numeric(n)), 
+            qtlleaf = as.double(numeric(n)), 
+             PACKAGE = "snptree")
     
     
     leaves <- a$leaves
@@ -43,13 +51,18 @@
     
     if (!quiet) 
         cat(leaves, " leaves on tree\n")
-    b <- list(tree = bb, nodepos = NodePos, tippos = TipPos, leafcount = a$leafcount[1:leaves], nodecount = a$leafcount[(leaves + 
-        1):(2 * leaves)], node_val = a$qtlnode[1:(leaves - 1)], leaf_val = a$qtlleaf[1:leaves], n = n, labels = labs)
+    b <- list(tree = bb, 
+              nodepos = NodePos, 
+              tippos = TipPos, 
+              leafcount = a$leafcount[1:leaves], 
+              nodecount = a$leafcount[(leaves +  1):(2 * leaves)], 
+              node_val = a$qtlnode[1:(leaves - 1)], 
+              leaf_val = a$qtlleaf[1:leaves], 
+              n = n, 
+              labels = labs)
     class(b) <- "splitqtrait"
-    b
+    return(b)
 }
-
-
 
 
 "splitQTLTest" <- function(d, qtl, positions, maxk = 4, reps = 1000, pickStat = "A") {
@@ -68,11 +81,20 @@
         stop("Error, statPick should be one of A,P,Z,N")
     }
     
-    a <- .C("splittestQTL", as.integer(t(d)), as.integer(n), as.integer(ncol(d)), as.integer(positions - 1), as.integer(length(positions)), 
-        as.double(qtl), as.integer(reps), as.integer(maxk), teststat = as.double(numeric(maxk)), randteststats = as.double(numeric(maxk * 
-            reps)), leaves = as.integer(numeric(1)), as.character(pickStat), PACKAGE = "snptree")
-    
-    
+    a <- .C("splittestQTL", 
+            as.integer(t(d)), 
+            as.integer(n), 
+            as.integer(ncol(d)), 
+            as.integer(positions - 1), 
+            as.integer(length(positions)), 
+            as.double(qtl), 
+            as.integer(reps), 
+            as.integer(maxk), 
+            teststat = as.double(numeric(maxk)), 
+            randteststats = as.double(numeric(maxk * reps)), 
+            leaves = as.integer(numeric(1)), 
+            as.character(pickStat), 
+            PACKAGE = "snptree")
     
     rs <- matrix(a$randteststats, ncol = maxk, byrow = TRUE)
     

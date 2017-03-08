@@ -21,38 +21,38 @@ extern "C" {
                      int *comblabels, 
                      int *nodepos) 
   {  
-    TNT::Array2D<int> d(*samplesize,*nSNP,data);
-    splitter<int> s(d,d.dim1(),d.dim2());
-    for (int i=0;i<*npos;i++) s.split(positions[i]);
-    *len=s.nleaves();
+    TNT::Array2D<int> d(*samplesize, *nSNP, data);     // convert the data into a 2-d tnt array
+    splitter<int> s(d, d.dim1(), d.dim2());            // define the splitter object s
+    for (int i=0;i<*npos;i++) s.split(positions[i]);   // split at positions
+    *len=s.nleaves();                                  // how many leaves do we have on the tree
     
     std::vector<std::pair<int,int> > edges;
     std::vector<std::vector<int> > labels;
     
     s.apesplit(edges, labels);
     
-    // get the lengths of the labels to allow us to pass this information back tp R
+    // get the lengths of the labels to allow us to pass this information back to R
+    // the information is returned in the correct order for ape which is root->left->right
     size_t count=0;
-    for (size_t ii=0;ii<labels.size();ii++) {
-      for (size_t jj=0; jj<labels[ii].size(); jj++) 
+    for (size_t ii=0; ii < labels.size(); ii++) {
+      for (size_t jj=0; jj < labels[ii].size(); jj++) 
         comblabels[count++] = labels[ii][jj]+1;  // get 1 offset not 0
       leafcount[ii] = static_cast<int>(labels[ii].size());
     }
     
     int nedges=static_cast<int>(edges.size());
-    if (nedges!=2*(*len-1))
+    if (nedges != 2*(*len-1))
       throw std::range_error("problem in split_simple\n");
     
-    for (int i=0;i<nedges;i++) {
+    for (int i=0; i<nedges; i++) {
       edge[i] = edges[i].first;
       edge[nedges+i] = edges[i].second;
     }
-    // now try to get the lengths.  Note that the centre of this split is 
-    // positions[0].
+    // now try to get the lengths.  Note that the centre of this split is positions[0].
     std::vector<int> nodePos;
     s.getNodesPositions(nodePos);
     for (size_t ii=0;ii<nodePos.size();ii++) nodepos[ii]=nodePos[ii];
-  }
+}
   
   
   
