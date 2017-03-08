@@ -32,6 +32,12 @@ fastsplit:	 $(splitfiles) 	fastsplit.o read_csv.o  FSData.o
 		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o fastsplit.o  read_csv.o -o ../bin/fastsplit  $(LDFLAGS)
 
 
+
+fastsplitqtl:	 $(splitfiles) 	fastsplitqtl.o read_csv.o  FSData.o
+		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o fastsplitqtl.o  read_csv.o -o ../bin/fastsplitqtl  $(LDFLAGS)
+
+
+
 RandomisedCases.o:	RandomisedCases.cpp RandomisedCases.h gsl_rand.h
 fastsplit.o:	fastsplit.cc splitter.h  binode.h
 FSData.o:	FSData.h read_csv.h
