@@ -14,8 +14,10 @@ class ind_info;
 
 void conv(const SimpleCSVReader &csv, const snp_info &snp
                        , const ind_info &id,TNT::Array2D<int> &a,std::vector<int> &positions);
+
 void variantCounts(const SimpleCSVReader &csv, const snp_info &snp
                    , const ind_info &id,TNT::Array2D<int> &a,std::vector<int> &positions);
+
 enum SNP_Type  {Nonsynonymous, Synonymous, unknown};
 
 SNP_Type getsnptype(const std::string &a);
@@ -44,9 +46,11 @@ public:
   std::vector<char> variant;
   std::vector<double> maf;
 };
+
 //**************************************************
 //    Keeps individuals information
 //**************************************************
+
 class ind_info {
 public:
   ind_info(const char *filename);
@@ -100,7 +104,7 @@ public:
 //****************************************************
 class FSData {
 public:
-  FSData(const char *snpfilename,const char *idfilename):snps(snpfilename),id(idfilename) {} 
+  FSData(const char *snpfilename, const char *idfilename):snps(snpfilename),id(idfilename) {} 
   void add_data(const char *filename,bool anyvariant=true) {  // add genotype data
     SimpleCSVReader geno(filename);
     size_t index = snps.findIndex(geno.colnames[1]);
@@ -166,8 +170,8 @@ public:
   ///////////////////////////////////////////////////
   std::vector<std::string> name;
   std::vector<char> orientation;
-  std::vector<int> chromosome,gene_id,gene_length;
-  std::vector<int> position,gene_start,gene_end;
+  std::vector<int> chromosome, gene_id, gene_length;
+  std::vector<int> position, gene_start, gene_end;
 };
 
 #endif

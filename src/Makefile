@@ -15,7 +15,7 @@ GSLLFLAGS=$(shell gsl-config --libs)
 GSLCFLAGS= $(shell gsl-config --cflags)
 LDFLAGS=  $(GSLLFLAGS) 
 
-all:	 QTLtree
+all:	 fastsplit QTLtree
 
 clean:	
 		rm -f QTLtree *.o 
@@ -32,12 +32,8 @@ fastsplit:	 $(splitfiles) 	fastsplit.o read_csv.o  FSData.o
 		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o fastsplit.o  read_csv.o -o ../bin/fastsplit  $(LDFLAGS)
 
 
-fastsplitb:	$(splitfiles)  fastsplitb.o read_csv.o  FSData.o
-		$(CXX)  $(LDFLAGS) $(CXXFLAGS) $(splitfiles) FSData.o fastsplitb.o  read_csv.o -o ../bin/fastsplitb  $(LDFLAGS)
-
-
 RandomisedCases.o:	RandomisedCases.cpp RandomisedCases.h gsl_rand.h
-fastsplitb.o:	fastsplitb.cc splitter.h  binode.h
+fastsplit.o:	fastsplit.cc splitter.h  binode.h
 FSData.o:	FSData.h read_csv.h
 newio.o:	newio.cpp newio.h
 QTLtree.o:		FSData.h QTLtree.cc options.h splitter.h binode.h closest.h
