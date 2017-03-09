@@ -60,23 +60,21 @@ extern "C" {
  
  /** Get a split that splits everything (if no information then the 
   * splits are at random                                               */
- void simplesplit( int *data, int *samplesize, int *nSNP, 
+ void bsplit( int *data, int *samplesize, int *nSNP, 
                    int *xxx, int *nleaves) 
  {  
-   TNT::Array2D<int> d(*samplesize,*nSNP,data);
-   splitter<int> s(d,d.dim1(),d.dim2());
+   TNT::Array2D<int> d(*samplesize, *nSNP, data);
+   splitter<int> s(d, *samplesize, *nSNP);
    for (int i=0;i<*nSNP;i++) s.split(i);
    
-   *nleaves=s.nleaves();  
+   *nleaves=s.nleaves();
+   std::cerr << "we have " << *nleaves << " leaves" << std::endl;
    int nedges = 2*(*nleaves-1);
+   
+   std::cerr << "we have " << nedges << " edges" << std::endl;
    
    s.edges_positions_counts(xxx, xxx+nedges, xxx+2*nedges, xxx+3*nedges);
 
  }
   
-  
-  
-  
-  
- 
 }
