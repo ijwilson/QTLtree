@@ -11,3 +11,6 @@ haps <- haps[,snpmean>0.02 & snpmean < 0.98]
 
 simple <- bifurcation_split(haps)
 plot(simple, edge.width = simple$counts/100)
+
+## OK now need to be able to directly read 
+
