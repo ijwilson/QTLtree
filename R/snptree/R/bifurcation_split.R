@@ -1,7 +1,7 @@
 
  
 
-"bifurcation_split" <- function(d, quiet = TRUE) {
+"bifurcation_split" <- function(d) {
     n <- nrow(d)
     maxedges <- 4 * (n - 1)
     
@@ -11,24 +11,16 @@
             nSNP = as.integer(ncol(d)), 
             mat  = as.integer(numeric(4*maxedges)), 
             leaves = as.integer(numeric(1)), 
-            PACKAGE = "snptree")
+            PACKAGE = "snptree"
+            )
     
-    len <- 2*(a$leaves-1)
-    
-    yyy <- matrix(a$mat[4*len], ncol=4, byrow=FALSE)
-    print(yyy)
-
-
-    edge <- yyy[, 1:2]
-
-    bb <- list(edge = edge, Nnode = a$leaves - 1, edge.length = rep(1, 2 * (a$leaves - 1)), tip.label = 1:n)
+    nedges <- 2*(a$leaves-1)
+    print(nedges)
+    cat("length a$mat = ",length(a$mat), "we have ", nedges, " edges, and", a$leaves,  "leaves\n")
+    yyy <- matrix(a$mat[1:(4*nedges)], ncol=4, byrow=FALSE)
+    bb <- list(edge = yyy[, 1:2], Nnode = a$leaves - 1, edge.length = yyy[, 4], tip.label = 1:a$leaves, counts = yyy[,3])
     class(bb) <- c("phylo")
-    
 
-    
-    b <- list(tree = bb, counts = yyy[,3], positions=yyy[,4])
-    
-    class(b) <- c("bsplit")
-    b
+    bb
 }
 
