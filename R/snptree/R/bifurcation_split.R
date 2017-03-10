@@ -24,3 +24,22 @@
     bb
 }
 
+
+
+
+"bifurcation_left_right" <- function(d, first_right) {
+  ## split after the 
+  n <- nrow(d)
+  nSNPs <- ncol(d)
+  if (first_right<2 | first_right>nSNPS)
+    stop("first_right must be between 2 and the number of SNPs")
+  
+  dleft <- d[, (first_right-1):1]
+  dright <- d[, first_right:nSNPs]
+  
+  left_tree <- bifurcation_split(dleft)
+  right_tree <- bifurcation_split(dright)
+  
+  
+}
+

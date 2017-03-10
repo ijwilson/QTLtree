@@ -35,7 +35,7 @@ read_map_file <- function(map_file) {
 	colnames(map) <- c("chr", "position", "ancestral", "derived")
 	if (ncol(map) != 4) {
 		cat("Wrong format for map data file: ", map_file,
-		"\n Should contain 5 columns (Snp name, Chromosome Number, Position,"
+		"\n Should contain 5 columns (Snp name, Chromosome Number, Position,",
 		"Ancestral Allele and Derived Allele) and no header\n")
 		stop("Conversion stopped")
 	}
@@ -47,10 +47,10 @@ read_map_file <- function(map_file) {
 }
 
 
-data2haplohh<-function(hap_file, map_file, min_maf=0, min_perc_geno.hap=100,
+data2haplohh <- function(hap_file, map_file, min_maf=0, min_perc_geno.hap=100,
 						min_perc_geno.snp=100, chr.name=NA, popsel=NA, recode.allele=FALSE,
 						haplotype.in.columns=FALSE) {
-	res<-new("haplohh")
+	res <- new("haplohh")
 	if (min_perc_geno.hap<0 | min_perc_geno.hap>100) {
 		stop("The value for the argument min_perc_geno.hap should lie between 0 and 100")
 	}
@@ -80,7 +80,7 @@ data2haplohh<-function(hap_file, map_file, min_maf=0, min_perc_geno.hap=100,
 		tmp_pos<-as.numeric(map[,2])
 
 		if (sum(diff(tmp_pos)<0) > 0) {
-			stop("SNP should be ordered on the map, check also that both haplotypes"
+			stop("SNP should be ordered on the map, check also that both haplotypes",
 			"(column of haplo)\nand map (row of map) are ordered in the same way")
 		}
 		if (sum(diff(tmp_pos)==0)>0) {
@@ -237,7 +237,7 @@ data2haplohh<-function(hap_file, map_file, min_maf=0, min_perc_geno.hap=100,
    snp_sel=tmp_maf>min_maf
    if(sum(snp_sel)==res@nsnp){
     cat("No SNP discarded\n")
-   }else{
+   } else {
     cat(res@nsnp-sum(snp_sel)," SNPs discarded\n")
     res@haplo=res@haplo[,snp_sel]
     res@nsnp=sum(snp_sel)
@@ -249,4 +249,5 @@ data2haplohh<-function(hap_file, map_file, min_maf=0, min_perc_geno.hap=100,
  }
     cat("Data consists of",res@nhap,"haplotypes and",res@nsnp,"SNPs\n")
     return(res)
+	}
 }
