@@ -20,7 +20,10 @@ trait2[s$labels[['36']]] <- trait2[s$labels[['36']]] - 0.15
 sb <- split_qtrait(haps, trait2)
 plot(sb)
 
-tst <- splitQTLTest(haps, trait2)
+system.time(tst <- splitQTLTest(haps, trait2, reps=10000))
+library(rcppsnptree)
+tst2 <- rcppsnptree::qtrait_test(haps, cases, reps=10000)
+
 tst$p.value
 ## We would expect that the third p-value would be the the that compares best with
 ## Other methods, are there are 3 terminal nodes that have a systematic change
